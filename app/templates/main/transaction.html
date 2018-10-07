@@ -1,0 +1,129 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="tab-size text-left">
+  <h1 class="text-capitalize">{{ type }}</h1>
+  <p>{{ hash }} <i id="copy" class="btn far fa-copy" data-toggle="tooltip" data-trigger="click focus" title="cpoied" data-clipboard-text="{{ hash }}"></i></p>
+  <p class="align-top">{{ results.timestamp }}</p>
+
+  <div class="card-group border-top">
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Value</p>
+        {% if results.value[0] < 0 %}
+        <h5 class="card-text text-danger">
+        {% else %}
+        <h5 class="card-text text-success">
+        {% endif %}
+        {{ results.value[0] }} {{ results.value[1]}}</h5>
+        <p class="text-secondary">
+          <small class="fas fa-exchange-alt" data-toggle="tooltip" data-placement="bottom" title="{{ results.value[3] }} USD/MIOTA"></small>
+          {{ results.value[2] }} USD
+        </p>
+      </div>
+    </div>
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Index</p>
+        <h5 class="card-text">{{ results.current_index }}/{{ results.last_index }}</h5>
+      </div>
+    </div>
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Status</p>
+        {% if results.is_confirmed %}
+        <h5 class="card-text text-success">Confirmed</h5>
+        {% else %}
+        <h5 class="card-text text-warning">Pending</h5>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group border-top">
+    <div class="card bg-light border-light text-left">
+      <div class="card-body">
+        <p class="card-title text-secondary">Address</p>
+        <p class="card-text">
+          <a href="{{ url_for('main.result', type='address', hash=results.address)}}">
+            {{ results.address }}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group border-top">
+    <div class="card bg-light border-light text-left">
+      <div class="card-body">
+        <p class="card-title text-secondary">Bundle</p>
+        <p class="card-text">
+          <a href="{{ url_for('main.result', type='bundle', hash=results.bundle_hash)}}">
+            {{ results.bundle_hash }}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group border-top">
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Tag</p>
+        <p class="card-text">
+          <a href="{{ url_for('main.result', type='tag', hash=results.tag)}}">
+            {{ results.tag }}
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Nonce</p>
+        <p class="card-title">{{ results.nonce }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group border-top">
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Trunk</p>
+        <p class="card-text">
+          <a href="{{ url_for('main.result', type='transaction', hash=results.trunk_transaction_hash)}}">
+            {{ results.trunk_transaction_hash }}
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="card bg-light border-light">
+      <div class="card-body">
+        <p class="card-title text-secondary">Branch</p>
+        <p class="card-text">
+          <a href="{{ url_for('main.result', type='transaction', hash=results.branch_transaction_hash)}}">
+            {{ results.branch_transaction_hash }}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group border-top">
+    <div class="card bg-light border-light text-left">
+      <div class="card-body">
+        {% if results.current_index == 0 %}
+        <p class="card-title text-secondary">Message</p>
+        <p class="card-text">{{ results.signature_message_fragment.decode('ignore') }}</p>
+        {% else %}
+        <button class="btn btn-outline-secondary card-title" type="button" data-toggle="collapse" data-target="#collapseSignature" aria-expanded="false" aria-controls="collapseSignature">
+          Signature
+        </button>
+        <p class="collapse card-text" id="collapseSignature">{{ results.signature_message_fragment }}</p>
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

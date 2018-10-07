@@ -1,0 +1,55 @@
+{% from 'bootstrap/utils.html' import render_static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A simple IOTA explorer built with pyota and flask">
+    <meta name="author" content="YuWei Wu">
+    <title>IOTAStrong.io</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {{ bootstrap.load_css() }}
+    {{ render_static('css', 'app.css') }}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  </head>
+
+  <body class="text-center">
+    <nav class="container navbar navbar-expand-lg navbar-light mb-5 border-bottom ">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">IOTAStrong.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <form  method="POST" class="form-inline my-2 my-lg-0" action="{{ url_for('main.index',hash=hash) }}">
+          <fieldset>
+            <label class="sr-only" for="input">input</label>
+            <input class="form-control mr-sm-2 text-uppercase" id="hash" name="hash" placeholder="Search for transaction, address, bundle or tag" required type="text" value="">
+          </fieldset>
+        </form>
+
+      </div>
+    </nav>
+
+
+    <main role="main" class="container shadow-lg rounded bg-light">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer pt-5 pb-5">
+      <div class="container">
+        <a class="mr-2 ml-2" href="https://twitter.com/iotastrong_io" data-size="large" aria-label="Star wusyong/pyota-flask on GitHub">
+          <i class="fab fa-twitter fa-2x"></i>
+        </a>
+        <a class="mr-2 ml-2" href="https://github.com/wusyong/pyota-flask" data-size="large" aria-label="Star wusyong/pyota-flask on GitHub">
+          <i class="fab fa-github fa-2x"></i>
+        </a>
+      </div>
+    </footer>
+
+    {{ bootstrap.load_js() }}
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    {{ render_static('js', 'app.js') }}
+  </body>
+</html>

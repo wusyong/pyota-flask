@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="tab-size text-left">
+  <h1 class="text-capitalize">{{ type }}</h1>
+  <p>{{ hash }} <i id="copy" class="btn far fa-copy" data-toggle="tooltip" data-trigger="click" title="cpoied" data-clipboard-text="{{ hash }}"></i></p>
+  <div class="card bg-light border-light">
+    <div class="card-body">
+      <p class="card-title text-secondary">Balance</p>
+      <h5 class="col card-text">{{ results['balance'][0] }} {{ results['balance'][1] }}</h5>
+      <p class="col text-secondary">
+        <small class="fas fa-exchange-alt" data-toggle="tooltip" data-placement="bottom" title="{{ results['balance'][3] }} USD/MIOTA"></small>
+        {{ results['balance'][2] }} USD
+      </p>
+    </div>
+  </div>
+  <div class="card mb-4 bg-light border-light">
+    <div class="card-body text-secondary">Transaction ({{ results['transactions']|length }})</div>
+    <ul class="list-group list-group-flush">
+      {% for result in results['transactions'] %}
+      <li class="list-group-item bg-light">
+        <div class="card-group">
+          <div class="card bg-light border-light">
+            <div class="card-body">
+              <p class="card-text">
+                <a href="{{ url_for('main.result', type='transaction', hash=result.hash)}}">
+                  {{ result.hash }}
+                </a>
+                <small><a class="text-secondary" href="{{ url_for('main.result', type='bundle', hash=result.bundle_hash)}}">
+                  {{ result.bundle_hash }}
+                </a></small>
+                <div class="row">
+                  <p class="col text-secondary text-left">{{ result.timestamp }}</p>
+                  <p class="col text-right">{{ result.value[0] }} {{ result.value[1] }}</p>
+                  {% if result.is_confirmed %}
+                  <p class="text-success text-right">Confirmed</p>
+                  {% else %}
+                  <p class="text-warning text-right"> &nbsp;&nbsp; Pending</p>
+                  {% endif %}
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

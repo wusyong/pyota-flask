@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="tab-size text-left">
+  <h1 class="text-capitalize">{{ type }}</h1>
+  <p>{{ hash }} <i id="copy" class="btn far fa-copy" data-toggle="tooltip" data-trigger="click" title="cpoied" data-clipboard-text="{{ hash }}"></i></p>
+
+  <div class="card mb-4 bg-light border-light">
+    <div class="card-body text-secondary">Transaction ({{ results|length }})</div>
+    <ul class="list-group list-group-flush">
+      {% for result in results %}
+        <li class="list-group-item bg-light"><a href="{{ url_for('main.result', type="transaction", hash=result)}}">{{ result }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

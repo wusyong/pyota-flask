@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="tab-size text-left">
+  <div class="row">
+    <div class="col"><h1 class="text-capitalize">{{ type }}</h1></div>
+    {% if results[0][0].is_confirmed %}
+    <div class="col"><h5 class="card-body text-success text-right">Confirmed</h5></div>
+    {% else %}
+    <div class="col"><h5 class="card-body text-warning text-right">Pending</h5></div>
+    {% endif %}
+  </div>
+  <p>{{ hash }} <i id="copy" class="btn far fa-copy" data-toggle="tooltip" data-trigger="click" title="cpoied" data-clipboard-text="{{ hash }}"></i></p>
+
+  {% for result in results %}
+  <div class="card-body text-secondary">{{ result[0].timestamp }}</div>
+  <div class="card mb-4 bg-light border-light">
+    <div class="card-deck">
+      <div class="card bg-light border-light">
+        <p class="card-header text-secondary bg-light">Innput</p>
+            {% for tx in result %}
+            {% if tx.value[0] < 0 %}
+            <div class="card-body">
+              <p class="card-text">
+                <a href="{{ url_for('main.result', type='transaction', hash=tx.hash)}}">
+                  {{ tx.hash }}
+                </a>
+                <small><a class="text-secondary" href="{{ url_for('main.result', type='address', hash=tx.address)}}">
+                  {{ tx.address }}
+                </a></small>
+              </p>
+              <p class="text-danger text-left">{{ tx.value[0] }} {{ tx.value[1] }}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+      </div>
+      <div class="card bg-light border-light">
+        <p class="card-header text-secondary bg-light">Outnput</p>
+            {% for tx in result %}
+            {% if tx.value[0] >= 0 %}
+            <div class="card-body">
+              <p class="card-text">
+                <a href="{{ url_for('main.result', type='transaction', hash=tx.hash)}}">
+                  {{ tx.hash }}
+                </a>
+                <small><a class="text-secondary" href="{{ url_for('main.result', type='address', hash=tx.address)}}">
+                  {{ tx.address }}
+                </a></small>
+              </p>
+              <p class="text-success text-right">{{ tx.value[0] }} {{ tx.value[1] }}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

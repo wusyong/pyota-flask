@@ -1,0 +1,45 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+"asn1crypto" = "*"
+bcrypt = "*"
+bootstrap-flask = "*"
+certifi = "*"
+cffi = "*"
+chardet = "*"
+class-registry = "*"
+click = "*"
+cryptography = "*"
+filters = "*"
+flask = "*"
+flask-bcrypt = "*"
+flask-qrcode = "*"
+flask-wtf = "*"
+gunicorn = "*"
+idna = "*"
+itsdangerous = "*"
+"jinja2" = "*"
+markupsafe = "*"
+pillow = "*"
+pycparser = "*"
+pyopenssl = "*"
+pyota = "*"
+"pysha3" = "*"
+python-dateutil = "*"
+pytz = "*"
+qrcode = "*"
+regex = "*"
+requests = "*"
+six = "*"
+timeago = "*"
+"urllib3" = "*"
+werkzeug = "*"
+wtforms = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

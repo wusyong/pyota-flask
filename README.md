@@ -1,2 +1,2 @@
 # pyota-flask
-A simple IOTA Tangle explorer built with pyota and flask. iotastrong.io
+Pyota-flask is an open source IOTA Tangle explorer built with pyota and flask. 
