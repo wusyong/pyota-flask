@@ -22,6 +22,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav mr-auto text-left">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('services.reattach') }}">Reattach</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tracking</a>
+          </li>
+        </ul>
         <form  method="POST" class="form-inline my-2 my-lg-0" action="{{ url_for('main.index',hash=hash) }}">
           <fieldset>
             <label class="sr-only" for="input">input</label>

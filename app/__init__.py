@@ -20,8 +20,10 @@ def create_app(config_class=Config):
     qrcode.init_app(app)
 
     from app.main.routes import main
+    from app.services.routes import services
     from app.errors.handlers import errors
     app.register_blueprint(main)
+    app.register_blueprint(services)
     app.register_blueprint(errors)
 
     return app

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form  method="POST" class="tab-size" action="">
+  {{ form.hidden_tag() }}
+  <fieldset class="form-group">
+    <legend class="h3 mb-5 font-weight-normal">PROMOTE / REATTACH</legend>
+    <div class="form-group">
+      {{ form.tx.label(class="sr-only") }}
+      {% if form.tx.errors %}
+        {{ form.tx(class="form-control mb-4 is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.tx.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.tx(class="form-control mb-4 text-uppercase", placeholder="Your tail transaction hash") }}
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-lg btn-outline-primary") }}
+    </div>
+  </fieldset>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <h4>{{ message }}</h4>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</form>
+{% endblock %}
