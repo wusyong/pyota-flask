@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form  method="POST" class="tab-size" action="">
+  {{ form.hidden_tag() }}
+  <fieldset class="form-group">
+    <legend class="h3 mb-5 font-weight-normal">TRACK ADDRESS</legend>
+    <div class="form-group">
+      {{ form.address.label(class="sr-only") }}
+      {% if form.address.errors %}
+        {{ form.address(class="form-control mb-4 is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.address.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.address(class="form-control mb-4 text-uppercase", placeholder="Your address hash with checksum") }}
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-lg btn-outline-primary") }}
+    </div>
+  </fieldset>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == "address" %}
+          <a href="{{ url_for('main.result', type="address", hash=message) }}" class="link">{{ message }}</a>
+        {% elif category == "qrcode" %}
+          <img class="mt-3" src="{{ qrcode(message,box_size=5) }}">
+        {% else %}
+          <h4 class="text-left">{{ message }}</h4>
+          <hr>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</form>
+
+{% endblock %}
